@@ -1,0 +1,88 @@
+{{<layouts/main}}
+{{$content}}
+<div class="row">
+  <div class="col-md-12">
+    <h2>Our Dance Courses</h2>
+    <p class="lead">Explore our range of dance classes for all levels.</p>
+    <hr>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search courses" id="courseSearch">
+      <button class="btn btn-outline-primary" type="button" onclick="filterCourses()">Search</button>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <div class="btn-group float-end" role="group">
+      <button type="button" class="btn btn-outline-secondary" onclick="filterLevel('all')">All Levels</button>
+      <button type="button" class="btn btn-outline-secondary" onclick="filterLevel('beginner')">Beginner</button>
+      <button type="button" class="btn btn-outline-secondary" onclick="filterLevel('intermediate')">Intermediate</button>
+      <button type="button" class="btn btn-outline-secondary" onclick="filterLevel('advanced')">Advanced</button>
+    </div>
+  </div>
+</div>
+
+<div class="row" id="courseContainer">
+  {{#courses}}
+  <div class="col-md-6 col-lg-4 mb-4 course-card" data-level="{{level}}">
+    <div class="card h-100 shadow-sm">
+      {{#imageUrl}}
+      <img src="{{imageUrl}}" class="card-img-top" alt="{{title}}">
+      {{/imageUrl}}
+      {{^imageUrl}}
+      <img src="https://via.placeholder.com/300x200?text={{title}}" class="card-img-top" alt="{{title}}">
+      {{/imageUrl}}
+      <div class="card-body">
+        <h5 class="card-title">{{title}}</h5>
+        <span class="badge bg-primary mb-2">{{level}}</span>
+        <p class="card-text">{{description}}</p>
+      </div>
+      <div class="card-footer bg-white">
+        <a href="/courses/{{_id}}" class="btn btn-primary w-100">View Classes</a>
+      </div>
+    </div>
+  </div>
+  {{/courses}}
+  {{^courses}}
+  <div class="col-12">
+    <div class="alert alert-info">
+      No courses available at the moment.
+    </div>
+  </div>
+  {{/courses}}
+</div>
+
+<script>
+  function filterCourses() {
+    const searchTerm = document.getElementById('courseSearch').value.toLowerCase();
+    const courses = document.querySelectorAll('.course-card');
+    
+    courses.forEach(course => {
+      const title = course.querySelector('.card-title').textContent.toLowerCase();
+      const description = course.querySelector('.card-text').textContent.toLowerCase();
+      
+      if (title.includes(searchTerm) || description.includes(searchTerm)) {
+        course.style.display = 'block';
+      } else {
+        course.style.display = 'none';
+      }
+    });
+  }
+  
+  function filterLevel(level) {
+    const courses = document.querySelectorAll('.course-card');
+    
+    courses.forEach(course => {
+      if (level === 'all' || course.dataset.level === level) {
+        course.style.display = 'block';
+      } else {
+        course.style.display = 'none';
+      }
+    });
+  }
+</script>
+{{/content}}
+{{/layouts/main}}

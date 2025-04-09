@@ -1,0 +1,34 @@
+<footer class="bg-dark text-white py-4 mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Dance Class Booking</h5>
+        <p>Find and book your favorite dance classes with ease.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="/" class="text-white">Home</a></li>
+          <li><a href="/courses" class="text-white">Courses</a></li>
+          <li><a href="/courses/upcoming/classes" class="text-white">Upcoming Classes</a></li>
+          {{#user}}
+          <li><a href="/dashboard" class="text-white">My Dashboard</a></li>
+          {{/user}}
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Contact</h5>
+        <address>
+          <p>123 Dance Street<br>London, UK</p>
+          <p>Email: info@dancebooking.example</p>
+          <p>Phone: +44 123 456 7890</p>
+        </address>
+      </div>
+    </div>
+    <hr>
+    <div class="text-center">
+      <p>&copy; 2025 Dance Class Booking. All rights reserved.</p>
+      <p><small>This is a coursework project for a Web Application Development module.</small></p>
+    </div>
+  </div>
+</footer>

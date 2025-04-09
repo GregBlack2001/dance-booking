@@ -1,0 +1,103 @@
+{{<layouts/main}}
+{{$content}}
+<div class="row mb-4">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/courses">Courses</a></li>
+        <li class="breadcrumb-item"><a href="/courses/{{course._id}}">{{course.title}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{class.title}}</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-primary text-white">
+        <h2 class="card-title mb-0">{{class.title}}</h2>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <p><strong>Course:</strong> {{course.title}}</p>
+            <p><strong>Level:</strong> {{course.level}}</p>
+            <p><strong>Date:</strong> {{class.dateFormatted}}</p>
+            <p><strong>Time:</strong> {{class.timeRange}}</p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Instructor:</strong> {{class.instructor}}</p>
+            <p><strong>Location:</strong> {{class.location}}</p>
+            <p><strong>Capacity:</strong> {{class.capacity}} participants</p>
+            <p><strong>Available Spots:</strong> <span class="{{#isFull}}text-danger{{/isFull}}">{{spotsAvailable}}</span></p>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <h5>Class Description</h5>
+          <p>{{class.description}}</p>
+          <p>{{course.description}}</p>
+        </div>
+        
+        <div class="d-grid gap-2">
+          {{#user}}
+            {{#userHasBooked}}
+              <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> You have already booked this class. Visit your <a href="/dashboard">dashboard</a> to manage your bookings.
+              </div>
+            {{/userHasBooked}}
+            {{^userHasBooked}}
+              {{#isFull}}
+                <button class="btn btn-secondary btn-lg" disabled>Class Full</button>
+              {{/isFull}}
+              {{^isFull}}
+                <form action="/bookings" method="POST">
+                  <input type="hidden" name="classId" value="{{class._id}}">
+                  <button type="submit" class="btn btn-primary btn-lg">Book This Class</button>
+                </form>
+              {{/isFull}}
+            {{/userHasBooked}}
+          {{/user}}
+          {{^user}}
+            <a href="/auth/login?redirect=/courses/class/{{class._id}}" class="btn btn-primary btn-lg">Login to Book</a>
+          {{/user}}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-primary text-white">
+        <h4 class="card-title mb-0">What to Bring</h4>
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><i class="fas fa-tshirt"></i> Comfortable dance attire</li>
+          <li class="list-group-item"><i class="fas fa-shoe-prints"></i> Appropriate dance shoes</li>
+          <li class="list-group-item"><i class="fas fa-water"></i> Water bottle</li>
+          <li class="list-group-item"><i class="fas fa-sticky-note"></i> Notebook (optional)</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4 class="card-title mb-0">Location</h4>
+      </div>
+      <div class="card-body">
+        <address>
+          <strong>{{class.location}}</strong><br>
+          123 Dance Street<br>
+          London, UK<br><br>
+          <a href="https://maps.google.com/?q={{class.location}}" target="_blank" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-map-marker-alt"></i> View on Map
+          </a>
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+{{/content}}
+{{/layouts/main}}

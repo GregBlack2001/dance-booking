@@ -1,0 +1,117 @@
+{{<layouts/main}}
+{{$content}}
+<div class="row">
+  <div class="col-md-12">
+    <h2>My Dashboard</h2>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-primary text-white">
+        <h4 class="card-title mb-0">My Bookings</h4>
+      </div>
+      <div class="card-body">
+        {{#bookings.length}}
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Class</th>
+                <th>Date & Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#bookings}}
+              <tr>
+                <td>{{course.title}}</td>
+                <td>{{class.title}}</td>
+                <td>
+                  {{class.dateFormatted}}<br>
+                  <small class="text-muted">{{class.timeRange}}</small>
+                </td>
+                <td>
+                  {{#status}}
+                  <span class="badge {{#status}}{{#cancelled}}bg-danger{{/cancelled}}{{^cancelled}}bg-success{{/cancelled}}{{/status}}">
+                    {{status}}
+                  </span>
+                  {{/status}}
+                </td>
+                <td>
+                  <a href="/courses/class/{{class._id}}" class="btn btn-sm btn-info">
+                    <i class="fas fa-info-circle"></i> Details
+                  </a>
+                  {{#status}}
+                  {{^cancelled}}
+                  <a href="/bookings/cancel/{{_id}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to cancel this booking?')">
+                    <i class="fas fa-times"></i> Cancel
+                  </a>
+                  {{/cancelled}}
+                  {{/status}}
+                </td>
+              </tr>
+              {{/bookings}}
+            </tbody>
+          </table>
+        </div>
+        {{/bookings.length}}
+        {{^bookings.length}}
+        <div class="alert alert-info">
+          <p>You haven't booked any classes yet. <a href="/courses">Browse our courses</a> to find classes to book.</p>
+        </div>
+        {{/bookings.length}}
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-primary text-white">
+        <h4 class="card-title mb-0">Upcoming Classes</h4>
+      </div>
+      <div class="card-body">
+        {{#upcomingClasses.length}}
+        <div class="list-group">
+          {{#upcomingClasses}}
+          <a href="/courses/class/{{_id}}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{title}}</h5>
+              <small>{{course.level}}</small>
+            </div>
+            <p class="mb-1">{{course.title}}</p>
+            <small>
+              <i class="far fa-calendar-alt"></i> {{dateFormatted}}<br>
+              <i class="far fa-clock"></i> {{timeRange}}
+            </small>
+          </a>
+          {{/upcomingClasses}}
+        </div>
+        <div class="mt-3">
+          <a href="/courses/upcoming/classes" class="btn btn-outline-primary btn-sm">View More</a>
+        </div>
+        {{/upcomingClasses.length}}
+        {{^upcomingClasses.length}}
+        <p class="text-muted">No upcoming classes available.</p>
+        {{/upcomingClasses.length}}
+      </div>
+    </div>
+    
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4 class="card-title mb-0">Account Information</h4>
+      </div>
+      <div class="card-body">
+        <p><strong>Name:</strong> {{user.name}}</p>
+        <p><strong>Email:</strong> {{user.email}}</p>
+        <p><strong>Member Since:</strong> {{user.createdAt}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{{/content}}
+{{/layouts/main}}

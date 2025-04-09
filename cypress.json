@@ -1,0 +1,14 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "viewportWidth": 1280,
+    "viewportHeight": 720,
+    "defaultCommandTimeout": 5000,
+    "watchForFileChanges": false,
+    "video": false,
+    "screenshotOnRunFailure": true,
+    "trashAssetsBeforeRuns": true,
+    "testFiles": "**/*.spec.js",
+    "pluginsFile": "cypress/plugins/index.js",
+    "supportFile": "cypress/support/index.js",
+    "fixturesFolder": "cypress/fixtures"
+  }

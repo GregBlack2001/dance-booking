@@ -1,0 +1,37 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Database files
+data/
+
+# Log files
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage directory used by Jest
+coverage/
+
+# Cypress generated files
+cypress/videos/
+cypress/screenshots/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo

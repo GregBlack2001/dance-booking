@@ -1,0 +1,56 @@
+{{<layouts/main}}
+{{$content}}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow">
+      <div class="card-body p-4">
+        <h2 class="card-title text-center mb-4">Register</h2>
+        
+        <form action="/auth/register" method="POST">
+          <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control {{#errors.name}}is-invalid{{/errors.name}}" id="name" name="name" value="{{name}}" required>
+            {{#errors.name}}
+            <div class="invalid-feedback">{{errors.name}}</div>
+            {{/errors.name}}
+          </div>
+          
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control {{#errors.email}}is-invalid{{/errors.email}}" id="email" name="email" value="{{email}}" required>
+            {{#errors.email}}
+            <div class="invalid-feedback">{{errors.email}}</div>
+            {{/errors.email}}
+          </div>
+          
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control {{#errors.password}}is-invalid{{/errors.password}}" id="password" name="password" required>
+            <div class="form-text">Password must be at least 8 characters long.</div>
+            {{#errors.password}}
+            <div class="invalid-feedback">{{errors.password}}</div>
+            {{/errors.password}}
+          </div>
+          
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control {{#errors.confirmPassword}}is-invalid{{/errors.confirmPassword}}" id="confirmPassword" name="confirmPassword" required>
+            {{#errors.confirmPassword}}
+            <div class="invalid-feedback">{{errors.confirmPassword}}</div>
+            {{/errors.confirmPassword}}
+          </div>
+          
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Register</button>
+          </div>
+        </form>
+        
+        <div class="text-center mt-3">
+          <p>Already have an account? <a href="/auth/login">Login here</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{/content}}
+{{/layouts/main}}
